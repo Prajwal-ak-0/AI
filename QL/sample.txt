@@ -1,27 +1,35 @@
+# Artificial Intelligence A-Z
+
+# A Q-Learning Implementation for Process Optimization
+
+# Importing the libraries
 import numpy as np
 
-alpha = 0.1
+# Setting the parameters gamma and alpha for the Q-Learning
 gamma = 0.75
+alpha = 0.9
 
-location_to_state = {
-    'A': 0,
-    'B': 1,
-    'C': 2,
-    'D': 3,
-    'E': 4,
-    'F': 5,
-    'G': 6,
-    'H': 7,
-    'I': 8,
-    'J': 9,
-    'K': 10,
-    'L': 11
-}
+# PART 1 - DEFINING THE ENVIRONMENT
 
-actions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+# Defining the states
+location_to_state = {'A': 0,
+                     'B': 1,
+                     'C': 2,
+                     'D': 3,
+                     'E': 4,
+                     'F': 5,
+                     'G': 6,
+                     'H': 7,
+                     'I': 8,
+                     'J': 9,
+                     'K': 10,
+                     'L': 11}
 
-R = np.array([
-              [0,1,0,0,0,0,0,0,0,0,0,0],
+# Defining the actions
+actions = [0,1,2,3,4,5,6,7,8,9,10,11]
+
+# Defining the rewards
+R = np.array([[0,1,0,0,0,0,0,0,0,0,0,0],
               [1,0,1,0,0,1,0,0,0,0,0,0],
               [0,1,0,0,0,0,1,0,0,0,0,0],
               [0,0,0,0,0,0,0,1,0,0,0,0],
@@ -32,13 +40,14 @@ R = np.array([
               [0,0,0,0,1,0,0,0,0,1,0,0],
               [0,0,0,0,0,1,0,0,1,0,1,0],
               [0,0,0,0,0,0,0,0,0,1,0,1],
-              [0,0,0,0,0,0,0,1,0,0,1,0]
-            ])
+              [0,0,0,0,0,0,0,1,0,0,1,0]])
 
-state_to_location = {
-    state : location for location, state in location_to_state.items()
-}
+# PART 2 - BUILDING THE AI SOLUTION WITH Q-LEARNING
 
+# Making a mapping from the states to the locations
+state_to_location = {state: location for location, state in location_to_state.items()}
+
+# Making a function that returns the shortest route from a starting to ending location
 def route(starting_location, ending_location):
     R_new = np.copy(R)
     ending_state = location_to_state[ending_location]
@@ -63,9 +72,12 @@ def route(starting_location, ending_location):
         starting_location = next_location
     return route
 
-def best_route(starting_location, intermediary_location, ending_location):
-    final_route = route(starting_location, intermediary_location) + route(intermediary_location, ending_location)[1:]
-    print('Route:', final_route)
-    return final_route
+# PART 3 - GOING INTO PRODUCTION
 
+# Making the final function that returns the optimal route
+def best_route(starting_location, intermediary_location, ending_location):
+    return route(starting_location, intermediary_location) + route(intermediary_location, ending_location)[1:]
+
+# Printing the final route
+print('Route:')
 best_route('E', 'K', 'G')

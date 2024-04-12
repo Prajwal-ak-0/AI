@@ -125,9 +125,30 @@ print("Variance:", variance)
 
 
     
-    
-    
-    
+# PARAMATER'S TUNING FOR OPTIMIZING OUR ANN
+from scikeras.wrappers import KerasClassifier
+from sklearn.model_selection import GridSearchCV
+from keras.models import Sequential
+from keras.layers import Dense
+
+def build_classifier(optimizer='adam'):
+    classifier = Sequential()
+    classifier.add(Dense(units=6, activation='relu', input_shape=(11,)))
+    classifier.add(Dense(units=6, activation='relu'))
+    classifier.add(Dense(units=1, activation='sigmoid'))
+    classifier.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
+    return classifier
+
+classifier = KerasClassifier(model=build_classifier)
+parameters = {
+        'epochs' : [100, 200],
+        'optimizer' : ['adam', 'rmsprop']
+    }
+grid_search = GridSearchCV(estimator = classifier, param_grid = parameters, scoring = 'accuracy', cv = 10) 
+grid_search = grid_search.fit(x_train, y_train)
+best_params = grid_search.best_params_
+best_accuracy = grid_search.best_score_
+ 
     
     
     

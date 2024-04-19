@@ -1,12 +1,12 @@
-from keras.models import Sequential
-from keras.layers import Convolution2D
-from keras.layers import MaxPooling2D
-from keras.layers import Dense
-from keras.layers import Flatten
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D
+from tensorflow.keras.layers import MaxPooling2D
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import Flatten
 
 classifier = Sequential()
 
-classifier.add(Convolution2D(filters=32, kernel_size=(3, 3), input_shape=(64, 64, 3), activation='relu'))
+classifier.add(Conv2D(filters=32, kernel_size=(3, 3), input_shape=(64, 64, 3), activation='relu'))
 
 classifier.add(MaxPooling2D(pool_size=(2,2),strides=2))
 
@@ -54,18 +54,3 @@ classifier.fit(
             validation_data=test_set,
             validation_steps=2000 // batch_size
         )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

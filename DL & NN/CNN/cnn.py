@@ -3,10 +3,13 @@ from tensorflow.keras.layers import Conv2D
 from tensorflow.keras.layers import MaxPooling2D
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import Flatten
+from keras.layers import Input
 
 classifier = Sequential()
 
-classifier.add(Conv2D(filters=32, kernel_size=(3, 3), input_shape=(64, 64, 3), activation='relu'))
+classifier.add(Input(shape=(64,64,3)))
+
+classifier.add(Conv2D(filters=32, kernel_size=(3, 3), activation='relu'))
 
 classifier.add(MaxPooling2D(pool_size=(2,2),strides=2))
 
